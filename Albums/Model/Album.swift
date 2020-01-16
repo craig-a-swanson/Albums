@@ -34,7 +34,7 @@ struct Album {
 
 extension Album: Codable {
     
-    init(decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: AlbumKeys.self)
         
@@ -66,6 +66,23 @@ extension Album: Codable {
         genre = decodedGenre
         
         songs = [Song]()
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: AlbumKeys.self)
+        
+        try container.encode(artist, forKey: .artist)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        
+        var coverArtContainer = container.nestedUnkeyedContainer(forKey: .coverArt)
+        for coverArtURL in coverArt {
+            var coverArtStringContainer = coverArtContainer.nestedContainer(keyedBy: AlbumKeys.CoverArtKeys.self)
+            try coverArtStringContainer.encode(coverArtURL.absoluteString, forKey: .url)
+        }
+        
+        
     }
     
 }
