@@ -22,4 +22,9 @@ struct Album {
 
 extension Album: Codable {
     
+    init(decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: <#T##CodingKey.Protocol#>)
+    }
+    
 }

@@ -38,6 +38,10 @@ extension Song: Codable {
         
         id = try container.decode(String.self, forKey: .id)
         
+        let durationContainer = try container.nestedContainer(keyedBy: SongKeys.durationKeys.self, forKey: .duration)
+        duration = try durationContainer.decode(String.self, forKey: .duration)
         
+        let nameContainer = try container.nestedContainer(keyedBy: SongKeys.nameKeys.self, forKey: .name)
+        title = try nameContainer.decode(String.self, forKey: .title)
     }
 }
