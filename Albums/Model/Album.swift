@@ -11,7 +11,7 @@ import UIKit
 
 struct Album {
     var artist: String
-    var coverArt: URL
+    var coverArt: [URL]
     var genre: [String]
     var id: String
     var name: String
@@ -42,9 +42,19 @@ extension Album: Codable {
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         
-        let coverArtContainer = try container.nestedContainer(keyedBy: AlbumKeys.CoverArtKeys.self, forKey: .coverArt)
-        let coverArtString = try coverArtContainer.decode(String.self, forKey: .url)
-        coverArt = URL(string: coverArtString)!
+        var coverArtContainer = try container.nestedUnkeyedContainer(forKey: .coverArt)
+        var decodedCoverArt = [URL]()
+        while !coverArtContainer.isAtEnd {
+            
+            let coverArtKeyedContainer = try coverArtContainer.nestedContainer(keyedBy: AlbumKeys.CoverArtKeys.self)
+            
+            let coverArtString = try coverArtKeyedContainer.decode(URL.self, forKey: AlbumKeys.CoverArtKeys.url)
+//            let coverArtUrl = URL(string: coverArtString)
+            decodedCoverArt.append(coverArtString)
+        }
+        coverArt = decodedCoverArt
+        
+        
         
         var genreContainer = try container.nestedUnkeyedContainer(forKey: .genres)
         var decodedGenre = [String]()
