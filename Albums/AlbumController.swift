@@ -11,13 +11,13 @@ import Foundation
 class AlbumController {
     
     func testDecodingExampleAlbum() {
-        let url = URL(string: "/Users/craig/Development/iOS PT 3/ios-albums/Albums/Albums/AlbumController.swift")
+        guard let filePath = Bundle.main.path(forResource: "exampleAlbum", ofType: "json") else {  print("Error HERE")
+            return
+        }
+        let url = URL(string: filePath)
         
         do {
-            guard let url = url else {
-                print("Bad URL giving for decoding")
-                return
-            }
+            guard let url = url else { return }
             let downloadedData = try Data(contentsOf: url)
             print(downloadedData)
         } catch {
