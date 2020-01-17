@@ -68,28 +68,44 @@ class AlbumController {
         }.resume()
     }
     
-}
+    // MARK: - Create album
+    func createAlbum(for album: Album) {
+        albums.append(album)
+        put(album: album)
+    }
+    
+    // MARK: - Create song
+    func createSong(duration: String, id: String, name: String) -> Song {
+        let newSong = Song(duration: duration, id: id, name: name)
+        return newSong
+    }
+    
+    // MARK: - Update album
+    func update(for album: Album) {
+        put(album: album)
+    }
 
 
 
 
 
-//            var decodedAlbum: Album?
-//    var encodedAlbum: Data?
-//    func testDecodingExampleAlbum() {
-//
-//        if let url = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json") {
-//            
-//            do {
-//                let downloadedData = try Data(contentsOf: url)
-//                let decoder = JSONDecoder()
-//                decodedAlbum = try! decoder.decode(Album.self, from: downloadedData)
-//                print(decodedAlbum)
-//            } catch {
-//                print("Error in decoding the json: \(error)")
-//            }
-//        }
-//    }
+// MARK: - Remove these before final version
+            var decodedAlbum: Album?
+    var encodedAlbum: Data?
+    func testDecodingExampleAlbum() {
+
+        if let url = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json") {
+            
+            do {
+                let downloadedData = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                decodedAlbum = try! decoder.decode(Album.self, from: downloadedData)
+                print(decodedAlbum)
+            } catch {
+                print("Error in decoding the json: \(error)")
+            }
+        }
+    }
 //
 //    func testEncodingExampleAlbum() {
 //
@@ -112,3 +128,4 @@ class AlbumController {
 //
 //        }
 //    }
+}

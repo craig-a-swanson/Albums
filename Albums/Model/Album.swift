@@ -53,9 +53,10 @@ struct Song {
 }
 
 
-
+// MARK: - Codable extensions
 extension Album: Codable {
     
+// MARK: - Album decode
     init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: AlbumKeys.self)
@@ -104,6 +105,7 @@ extension Album: Codable {
         songs = songList
     }
     
+    // MARK: - Album encode
     func encode(to encoder: Encoder) throws {
         
         var container = encoder.container(keyedBy: AlbumKeys.self)
