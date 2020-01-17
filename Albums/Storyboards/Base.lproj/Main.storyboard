@@ -177,7 +177,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="prk-aw-kLF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1621.7391304347827" y="171.42857142857142"/>
+            <point key="canvasLocation" x="1780" y="167"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kJj-fv-MKs">
@@ -199,6 +199,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YZD-08-o5a"/>
+        <segue reference="XjN-n0-vJP"/>
     </inferredMetricsTieBreakers>
 </document>
