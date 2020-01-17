@@ -90,22 +90,22 @@ class AlbumController {
 
 
 // MARK: - Remove these before final version
-            var decodedAlbum: Album?
-    var encodedAlbum: Data?
-    func testDecodingExampleAlbum() {
-
-        if let url = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json") {
-            
-            do {
-                let downloadedData = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                decodedAlbum = try! decoder.decode(Album.self, from: downloadedData)
-                print(decodedAlbum)
-            } catch {
-                print("Error in decoding the json: \(error)")
-            }
-        }
-    }
+//            var decodedAlbum: Album?
+//    var encodedAlbum: Data?
+//    func testDecodingExampleAlbum() {
+//
+//        if let url = Bundle.main.url(forResource: "exampleAlbum", withExtension: "json") {
+//
+//            do {
+//                let downloadedData = try Data(contentsOf: url)
+//                let decoder = JSONDecoder()
+//                decodedAlbum = try! decoder.decode(Album.self, from: downloadedData)
+//                print(decodedAlbum)
+//            } catch {
+//                print("Error in decoding the json: \(error)")
+//            }
+//        }
+//    }
 //
 //    func testEncodingExampleAlbum() {
 //
