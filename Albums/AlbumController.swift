@@ -15,7 +15,7 @@ class AlbumController {
     private let baseURL: URL = URL(string: "https://mymovies-1962c.firebaseio.com/")!
     
     
-    // MARK: - Read from server
+    // MARK: - Read/fetch from server
     func getAlbums(completion: @escaping (Error?) -> () = {_ in }) {
         let requestURL = baseURL.appendingPathExtension("json")
         
@@ -43,7 +43,30 @@ class AlbumController {
         }.resume()
     }
     
-    
+    // MARK: - Put to server
+    func put(album: Album, completion: @escaping (Error?) -> () = {_ in }) {
+        let identifier = album.id
+        let requestURL = baseURL.appendingPathComponent(identifier).appendingPathExtension("json")
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "PUT"
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(album)
+        } catch {
+            print("Error encoding album: \(error)")
+            completion(error)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            guard error == nil else {
+                print("Error PUTing movie to server: \(error!)")
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
     
 }
 
