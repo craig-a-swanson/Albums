@@ -21,7 +21,7 @@ class AlbumController {
         
         URLSession.shared.dataTask(with: requestURL) { data, _, error in
             guard error == nil else {
-                print("Error fetching albums from server: \(error)")
+                print("Error fetching albums from server: \(error!)")
                 completion(error)
                 return
             }
