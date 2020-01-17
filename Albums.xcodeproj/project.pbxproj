@@ -18,6 +18,7 @@
 		440B127323D0055300464F6E /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B127223D0055300464F6E /* Song.swift */; };
 		440B127723D0241200464F6E /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B127623D0241200464F6E /* AlbumController.swift */; };
 		440B127923D0CC8100464F6E /* exampleAlbum.json in Resources */ = {isa = PBXBuildFile; fileRef = 440B127823D0CC8100464F6E /* exampleAlbum.json */; };
+		440B127B23D138A400464F6E /* Song2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440B127A23D138A400464F6E /* Song2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		440B127523D023D300464F6E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440B127623D0241200464F6E /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
 		440B127823D0CC8100464F6E /* exampleAlbum.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exampleAlbum.json; sourceTree = "<group>"; };
+		440B127A23D138A400464F6E /* Song2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				440B126D23CFD0AF00464F6E /* Album.swift */,
 				440B127223D0055300464F6E /* Song.swift */,
+				440B127A23D138A400464F6E /* Song2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				440B127723D0241200464F6E /* AlbumController.swift in Sources */,
 				440B125323CFC13400464F6E /* SceneDelegate.swift in Sources */,
 				440B126E23CFD0AF00464F6E /* Album.swift in Sources */,
+				440B127B23D138A400464F6E /* Song2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

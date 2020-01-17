@@ -23,11 +23,33 @@ struct Album {
         case name
         case coverArt
         case genres
+        case songs
         
         enum CoverArtKeys: String, CodingKey {
             case url
         }
+        
+        enum SongsKeys: String, CodingKey {
+            case duration
+            case id
+            case name
+            
+            enum durationKeys: String, CodingKey {
+                case duration
+            }
+            
+            enum nameKeys: String, CodingKey {
+                case title
+            }
+        }
+        
     }
+}
+
+struct Song {
+    var duration: String
+    var id: String
+    var name: String
 }
 
 
@@ -49,7 +71,6 @@ extension Album: Codable {
             let coverArtKeyedContainer = try coverArtContainer.nestedContainer(keyedBy: AlbumKeys.CoverArtKeys.self)
             
             let coverArtString = try coverArtKeyedContainer.decode(URL.self, forKey: AlbumKeys.CoverArtKeys.url)
-//            let coverArtUrl = URL(string: coverArtString)
             decodedCoverArt.append(coverArtString)
         }
         coverArt = decodedCoverArt
@@ -65,7 +86,22 @@ extension Album: Codable {
         }
         genre = decodedGenre
         
-        songs = [Song]()
+        var songsUnkeyedContainer = try container.nestedUnkeyedContainer(forKey: .songs)
+        var songList: [Song] = []
+        while !songsUnkeyedContainer.isAtEnd {
+            let songKeyedContainer = try songsUnkeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.self)
+            
+            let durationKeyedContainer = try songKeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.durationKeys.self, forKey: .duration)
+            let songDuration = try durationKeyedContainer.decode(String.self, forKey: .duration)
+            
+            let songID = try songKeyedContainer.decode(String.self, forKey: .id)
+            
+            let songNameKeyedContainer = try songKeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.nameKeys.self, forKey: .name)
+            let songName = try songNameKeyedContainer.decode(String.self, forKey: .title)
+            let newSong = Song(duration: songDuration, id: songID, name: songName)
+            songList.append(newSong)
+        }
+        songs = songList
     }
     
     func encode(to encoder: Encoder) throws {
@@ -80,6 +116,11 @@ extension Album: Codable {
         for coverArtURL in coverArt {
             var coverArtStringContainer = coverArtContainer.nestedContainer(keyedBy: AlbumKeys.CoverArtKeys.self)
             try coverArtStringContainer.encode(coverArtURL.absoluteString, forKey: .url)
+        }
+        
+        var genreContainer = container.nestedUnkeyedContainer(forKey: .genres)
+        for genre in genre {
+            try genreContainer.encode(genre)
         }
         
         
