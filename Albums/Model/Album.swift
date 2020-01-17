@@ -123,6 +123,16 @@ extension Album: Codable {
             try genreContainer.encode(genre)
         }
         
+        var songUnkeyedContainer = container.nestedUnkeyedContainer(forKey: .songs)
+        for oneSong in songs {
+            var songKeyedContainer = songUnkeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.self)
+            try songKeyedContainer.encode(oneSong.id, forKey: .id)
+            var durationKeyedContainer = songKeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.durationKeys.self, forKey: .duration)
+            try durationKeyedContainer.encode(oneSong.duration, forKey: .duration)
+            var titleKeyedContainer = songKeyedContainer.nestedContainer(keyedBy: AlbumKeys.SongsKeys.nameKeys.self, forKey: .name)
+            try titleKeyedContainer.encode(oneSong.name, forKey: .title)
+        }
+        
         
     }
     

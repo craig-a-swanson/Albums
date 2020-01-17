@@ -18,7 +18,6 @@ class AlbumController {
             let downloadedData = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             let decodedAlbum = try! decoder.decode(Album.self, from: downloadedData)
-            print(decodedAlbum)
         } catch {
             print("Error in decoding the json: \(error)")
         }

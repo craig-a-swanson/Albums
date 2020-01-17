@@ -11,11 +11,9 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var albumController = AlbumController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        albumController.testDecodingExampleAlbum()
         // Override point for customization after application launch.
         return true
     }
