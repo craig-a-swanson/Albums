@@ -18,6 +18,7 @@ class AlbumDetailTableViewController: UITableViewController {
         }
     }
     var tempSongs: [Song] = []
+    var delegate: AlbumDetailVCDelegate?
     
     
     // MARK: - Outlets
@@ -50,15 +51,16 @@ class AlbumDetailTableViewController: UITableViewController {
         } else {
             // create a new album and pass it to the createAlbum method
             let id = UUID().uuidString
-                      guard let artist = artistNameTextField.text,
-                          let albumName = albumNameTextField.text,
-                          let genre = genreTextField.text,
-                          let coverArtString = coverArtTextField.text,
-                          let coverArtURL = URL(string: coverArtString) else { return }
-                      let songs = tempSongs
-                      let newAlbum = Album(artist: artist, coverArt: [coverArtURL], genre: [genre], id: id, name: albumName, songs: songs)
-                      albumController?.createAlbum(for: newAlbum)
+            guard let artist = artistNameTextField.text,
+                let albumName = albumNameTextField.text,
+                let genre = genreTextField.text,
+                let coverArtString = coverArtTextField.text,
+                let coverArtURL = URL(string: coverArtString) else { return }
+            let songs = tempSongs
+            let newAlbum = Album(artist: artist, coverArt: [coverArtURL], genre: [genre], id: id, name: albumName, songs: songs)
+            delegate?.albumWasCreated(newAlbum)
         }
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Methods
@@ -86,45 +88,33 @@ class AlbumDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath) as? SongTableViewCell else { return UITableViewCell() }
         
+        for song in tempSongs {
+            cell.song = song
+        }
+        
         cell.delegate = self
 
         return cell
     }
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
+// MARK: - SongTableViewCellDelegate
 extension AlbumDetailTableViewController: SongTableViewCellDelegate {
     func addSong(with title: String, duration: String) {
         let songID = UUID()
-        let newSong = albumController?.createSong(duration: title, id: songID.uuidString, name: duration)
+        let newSong = albumController?.createSong(duration: duration, id: songID.uuidString, name: title)
         if let newSong = newSong {
         tempSongs.append(newSong)
         }
-        
+        tableView.reloadData()
         tableView.scrollToRow(at: IndexPath(row: tempSongs.count, section: 0), at: UITableView.ScrollPosition(rawValue: 1)!, animated: true)
     }
     
     
+}
+
+// MARK: - AlbumDetailVC Delegate
+protocol AlbumDetailVCDelegate {
+    func albumWasCreated(_ album: Album)
 }

@@ -43,12 +43,13 @@ class SongTableViewCell: UITableViewCell {
             addSongButton.isHidden = true
         }
     }
-    
     override func prepareForReuse() {
+        super.prepareForReuse()
         songTitleTextField.text = ""
         songDurationTextField.text = ""
         addSongButton.isHidden = false
     }
+    
 
 }
 

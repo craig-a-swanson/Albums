@@ -71,6 +71,7 @@ class AlbumsTableViewController: UITableViewController {
         if segue.identifier == "NewAlbumSegue" {
             guard let newAlbumVC = segue.destination as? AlbumDetailTableViewController else { return }
             newAlbumVC.albumController = albumController
+            newAlbumVC.delegate = self
             
         } else {
             guard let albumDetailVC = segue.destination as? AlbumDetailTableViewController else { return }
@@ -82,4 +83,14 @@ class AlbumsTableViewController: UITableViewController {
         }
     }
 
+}
+
+// MARK: - AlbumDetailVCDelegate Conformance
+extension AlbumsTableViewController: AlbumDetailVCDelegate {
+    func albumWasCreated(_ album: Album) {
+        albumController?.createAlbum(for: album)
+        tableView.reloadData()
+    }
+    
+    
 }
