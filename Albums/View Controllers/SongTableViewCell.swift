@@ -11,7 +11,11 @@ import UIKit
 class SongTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    var song: Song?
+    var song: Song? {
+        didSet {
+            updateViews()
+        }
+    }
     var delegate: SongTableViewCellDelegate?
     
     
@@ -20,17 +24,6 @@ class SongTableViewCell: UITableViewCell {
     @IBOutlet weak var songDurationTextField: UITextField!
     @IBOutlet weak var addSongButton: UIButton!
     
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     // MARK: - Actions
     @IBAction func addSongButtonTapped(_ sender: UIButton) {
@@ -41,6 +34,7 @@ class SongTableViewCell: UITableViewCell {
         delegate?.addSong(with: songTitle, duration: songDuration)
     }
     
+    // MARK: - Methods
     func updateViews() {
         
         if let song = song {
@@ -58,6 +52,7 @@ class SongTableViewCell: UITableViewCell {
 
 }
 
+// MARK: - Delegate protocol
 protocol SongTableViewCellDelegate {
     func addSong(with title: String, duration: String)
 }

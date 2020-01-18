@@ -12,7 +12,12 @@ class AlbumDetailTableViewController: UITableViewController {
 
     // MARK: - Properties
     var albumController: AlbumController?
-    var album: Album?
+    var album: Album? {
+        didSet {
+            updateViews()
+        }
+    }
+    var tempSongs: [Song] = []
     
     
     // MARK: - Outlets
@@ -25,10 +30,28 @@ class AlbumDetailTableViewController: UITableViewController {
     // MARK: - Table View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateViews()
     }
     
     // MARK: - Actions
     @IBAction func saveAlbumButtonTapped(_ sender: UIBarButtonItem) {
+    }
+    
+    // MARK: - Methods
+    func updateViews() {
+        guard isViewLoaded else { return }
+        if let album = album {
+            self.title = album.name
+            albumNameTextField.text = album.name
+            artistNameTextField.text = album.artist
+            genreTextField.text = album.genre.joined(separator: ", ")
+            let coverArtString = "\(album.coverArt)"
+            coverArtTextField.text = coverArtString
+            tempSongs = album.songs
+        } else {
+            self.title = "New Album"
+        }
     }
     
 
@@ -99,4 +122,18 @@ class AlbumDetailTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension AlbumDetailTableViewController: SongTableViewCellDelegate {
+    func addSong(with title: String, duration: String) {
+        let songID = UUID()
+        let newSong = albumController?.createSong(duration: title, id: songID.uuidString, name: duration)
+        if let newSong = newSong {
+        tempSongs.append(newSong)
+        }
+        
+        tableView.scrollToRow(at: IndexPath(row: tempSongs.count, section: 0), at: UITableView.ScrollPosition(rawValue: 1)!, animated: true)
+    }
+    
+    
 }
