@@ -10,16 +10,9 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var albumController = AlbumController()
-    var newAlbum: Album?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        newAlbum = Album(artist: "Gear Daddies", coverArt: [URL(string: "http://google.com")!], genre: ["Alternative", "Alt-Country"], id: "12345", name: "Let's Go Scare Al", songs: [Song(duration: "3:12", id: "54321", name: "Dream Vacation"), Song(duration: "6:22", id: "25223H898", name: "Strength")])
-        albumController.createAlbum(for: newAlbum!)
-//        albumController.testDecodingExampleAlbum()
-//        albumController.testEncodingExampleAlbum()
         // Override point for customization after application launch.
         return true
     }
