@@ -47,7 +47,7 @@ class AlbumDetailTableViewController: UITableViewController {
                 let coverArtURL = URL(string: coverArtString) else { return }
             let songs = tempSongs
             let updatedAlbum = Album(artist: artist, coverArt: [coverArtURL], genre: [genre], id: id, name: albumName, songs: songs)
-            albumController?.update(for: updatedAlbum)
+            delegate?.albumWasUpdated(updatedAlbum)
         } else {
             // create a new album and pass it to the createAlbum method
             let id = UUID().uuidString
@@ -88,7 +88,8 @@ class AlbumDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SongCell", for: indexPath) as? SongTableViewCell else { return UITableViewCell() }
         
-        for song in tempSongs {
+        if indexPath.row < tempSongs.count {
+            let song = tempSongs[indexPath.row]
             cell.song = song
         }
         
@@ -117,4 +118,5 @@ extension AlbumDetailTableViewController: SongTableViewCellDelegate {
 // MARK: - AlbumDetailVC Delegate
 protocol AlbumDetailVCDelegate {
     func albumWasCreated(_ album: Album)
+    func albumWasUpdated(_ album: Album)
 }

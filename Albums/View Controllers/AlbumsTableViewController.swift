@@ -76,6 +76,7 @@ class AlbumsTableViewController: UITableViewController {
         } else {
             guard let albumDetailVC = segue.destination as? AlbumDetailTableViewController else { return }
             albumDetailVC.albumController = albumController
+            albumDetailVC.delegate = self
             if let indexPath = tableView.indexPathForSelectedRow {
                 albumDetailVC.album = albumController?.albums[indexPath.row]
             }
@@ -91,6 +92,9 @@ extension AlbumsTableViewController: AlbumDetailVCDelegate {
         albumController?.createAlbum(for: album)
         tableView.reloadData()
     }
-    
+    func albumWasUpdated(_ album: Album) {
+        albumController?.update(for: album)
+        tableView.reloadData()
+    }
     
 }

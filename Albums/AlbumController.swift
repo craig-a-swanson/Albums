@@ -82,6 +82,10 @@ class AlbumController {
     
     // MARK: - Update album
     func update(for album: Album) {
+        if let row = self.albums.firstIndex(where: {$0.id == album.id}) {
+            albums[row].songs = album.songs
+        }
+//        albums.filter {$0.id == album.id}.first?.songs = album.songs
         put(album: album)
     }
 
